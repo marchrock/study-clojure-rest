@@ -1,10 +1,10 @@
 (ns study-clojure-rest.core
-  (:require [study-clojure-rest.server :refer [start-server]]))
+  (:require [study-clojure-rest.server :refer [start-server]]
+            [ring.util.response :refer [response]]))
 
-(defn app [req]
-  {:status  200
-   :headers {"Content-Type" "text/html"}
-   :body    "Hello, Clojure World!"})
+(defn app
+  [req]
+  (response "Hello, Clojure World!"))
 
 (defn -main
   [& args]
