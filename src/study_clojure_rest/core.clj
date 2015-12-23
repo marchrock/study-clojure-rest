@@ -1,11 +1,7 @@
 (ns study-clojure-rest.core
   (:require [study-clojure-rest.server :refer [start-server]]
-            [ring.util.response :refer [response]]))
-
-(defn app
-  [req]
-  (response "Hello, Clojure World!"))
+            [study-clojure-rest.routing :refer [routing]]))
 
 (defn -main
   [& args]
-  (study-clojure-rest.server/start-server app))
+  (study-clojure-rest.server/start-server routing))
