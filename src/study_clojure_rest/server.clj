@@ -3,14 +3,9 @@
 
 (defonce server (atom nil))
 
-(defn app [req]
-  {:status  200
-   :headers {"Content-Type" "text/html"}
-   :body    "Hello, Clojure World!"})
-
 (defn start-server
-  []
-  (if (nil? @server) (reset! server (run-server #'app {:port 8080}))))
+  [handler]
+  (if (nil? @server) (reset! server (run-server handler {:port 8080}))))
 
 (defn stop-server
   []
