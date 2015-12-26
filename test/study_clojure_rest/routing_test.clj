@@ -5,13 +5,12 @@
             [study-clojure-rest.routing :refer :all]
             [ring.mock.request :as mock]))
 
-(deftest my-request-test
-  (is (= (routing (mock/request :get "/"))
-         {:status 200
-          :headers {}
-          :body "Hello, Clojure World!"})))
-
 (fact "about '/'"
       (routing (mock/request :get "/")) => {:status 200
                                             :headers {}
                                             :body "Hello, Clojure World!"})
+
+(fact "about '/header-test'"
+      (routing (mock/request :get "/header-test")) => {:status 200
+                                                       :headers {"Content-Type" "application/json"}
+                                                       :body "{\"Hello\": \"Clojure\"}"})
