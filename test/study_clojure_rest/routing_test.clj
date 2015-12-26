@@ -1,6 +1,6 @@
 (ns study-clojure-rest.routing-test
   (:require [clojure.test :refer :all]
-            [midje.sweet :refer [fact]]
+            [midje.sweet :refer :all :exclude [=>]]
             [midje.parsing.arrow-symbols :refer [=>]]
             [study-clojure-rest.routing :refer :all]
             [ring.mock.request :as mock]))
