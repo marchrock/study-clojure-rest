@@ -12,5 +12,8 @@
   :profiles {:dev {:dependencies [[midje "1.8.3"]
                                   [ring/ring-mock "0.3.0"]
                                   [ring/ring-devel "1.4.0"]]
-                   :env {:server-port-number 3000}}}
+                   :env {:server-port-number 3000
+                         :database-server-host "localhost"
+                         :database-server-port 27017
+                         :database-name "db-study-clojure-rest"}}}
   :main study-clojure-rest.core)
