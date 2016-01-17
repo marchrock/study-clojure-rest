@@ -10,6 +10,9 @@
 (def db-port
   (env :database-server-port))
 
+(def db-name
+  (env :database-name))
+
 (defn start-db-connection
   []
   (if (nil? db-connection) (reset! db-connection (mg/connect {:host db-host :port db-port}))))
@@ -18,3 +21,8 @@
   []
   (start-db-connection)
   db-connection)
+
+(defn get-db
+  []
+  (let [conn (get-db-connection)]
+    (mg/get-db conn db-name)))
