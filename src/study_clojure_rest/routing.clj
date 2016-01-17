@@ -1,6 +1,7 @@
 (ns study-clojure-rest.routing
-  (:require [compojure.core :refer [defroutes GET POST PUT DELETE ANY]]
-            [ring.util.response :refer [response header]]))
+  (:require [compojure.core :refer [defroutes GET POST PUT DELETE ANY context]]
+            [ring.util.response :refer [response header]]
+            [study-clojure-rest.todos :refer [todos-routes]]))
 
 (defn my-request
   [req]
@@ -13,4 +14,5 @@
 
 (defroutes routing
            (ANY "/" []  my-request)
-           (ANY "/header-test" []  header-test))
+           (ANY "/header-test" []  header-test)
+           (context "/todos" [] (todos-routes)))
