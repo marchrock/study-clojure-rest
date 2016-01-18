@@ -14,6 +14,7 @@
 (def app
   (-> (ring-default/wrap-defaults routing ring-default/api-defaults)
       (ring-json/wrap-json-body {:keywords? true})
+      (ring-json/wrap-json-response {:pretty true})
       (as-> handler (if (in-dev?) (ring-reload/wrap-reload handler)
                                   handler))))
 
