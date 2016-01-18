@@ -21,11 +21,10 @@
   ([host port] (if (nil? db-connection) (reset! db-connection (mg/connect {:host host :port port})))))
 
 (defn get-db-connection
-  []
   (start-db-connection)
   db-connection)
 
 (defn get-db
-  []
-  (let [conn (get-db-connection)]
-    (mg/get-db conn db-name)))
+  ([] (get-db (get-db-connection) db-name))
+  ([conn] (get-db conn db-name))
+  ([conn name] (mg/get-db conn name)))
