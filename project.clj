@@ -17,5 +17,6 @@
                    :env {:server-port-number 3000
                          :database-server-host "localhost"
                          :database-server-port 27017
-                         :database-name "db-study-clojure-rest"}}}
+                         :database-name "db-study-clojure-rest"
+                         :in-dev true}}}
   :main study-clojure-rest.core)

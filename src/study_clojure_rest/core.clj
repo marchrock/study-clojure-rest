@@ -2,11 +2,19 @@
   (:require [study-clojure-rest.server :refer [start-server]]
             [study-clojure-rest.routing :refer [routing]]
             [ring.middleware.defaults :as ring-default]
-            [ring.middleware.json :as ring-json]))
+            [ring.middleware.json :as ring-json]
+            [ring.middleware.reload :as ring-reload]
+            [environ.core :refer [env]]))
+
+(defn in-dev?
+  []
+  (env :in-dev))
 
 (def app
   (-> (ring-default/wrap-defaults routing ring-default/api-defaults)
-      (ring-json/wrap-json-body {:keywords? true})))
+      (ring-json/wrap-json-body {:keywords? true})
+      (as-> handler (if (in-dev?) (ring-reload/wrap-reload handler)
+                                  handler))))
 
 (defn -main
   [& args]
