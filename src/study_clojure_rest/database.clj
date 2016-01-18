@@ -28,3 +28,11 @@
   ([] (get-db (get-db-connection) db-name))
   ([conn] (get-db conn db-name))
   ([conn name] (mg/get-db conn name)))
+
+(defmacro db-insert
+  [mongo-coll document]
+  (let [conn (get-db-connection)
+        mongo-db (get-db conn)
+        document-with-id (if (contains? document :_id) document
+                                                       (assoc document :_id (ObjectId.)))]
+    (mc/insert mongo-db mongo-coll document-with-id)))
