@@ -1,6 +1,8 @@
 (ns study-clojure-rest.database
   (:require [monger.core :as mg]
-            [environ.core :refer [env]]))
+            [monger.collection :as mc]
+            [environ.core :refer [env]])
+  (:import (org.bson.types ObjectId)))
 
 (defonce db-connection (atom nil))
 
@@ -14,8 +16,9 @@
   (env :database-name))
 
 (defn start-db-connection
-  []
-  (if (nil? db-connection) (reset! db-connection (mg/connect {:host db-host :port db-port}))))
+  ([] (start-db-connection db-host db-port))
+  ([host] (start-db-connection host db-port))
+  ([host port] (if (nil? db-connection) (reset! db-connection (mg/connect {:host host :port port})))))
 
 (defn get-db-connection
   []
