@@ -18,12 +18,13 @@
 (defn start-db-connection
   ([] (start-db-connection db-host db-port))
   ([host] (start-db-connection host db-port))
-  ([host port] (if (nil? db-connection) (reset! db-connection (mg/connect {:host host :port port})))))
+  ([host port] (if (nil? @db-connection) (reset! db-connection (mg/connect {:host host :port port})))))
 
 (defn get-db-connection
   []
-  (do (start-db-connection)
-     @db-connection))
+  (if (nil? @db-connection) (do (start-db-connection)
+                                @db-connection)
+                            @db-connection))
 
 (defn get-db
   ([] (get-db (get-db-connection) db-name))
