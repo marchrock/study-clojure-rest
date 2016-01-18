@@ -21,8 +21,9 @@
   ([host port] (if (nil? db-connection) (reset! db-connection (mg/connect {:host host :port port})))))
 
 (defn get-db-connection
-  (start-db-connection)
-  db-connection)
+  []
+  (do (start-db-connection)
+     @db-connection))
 
 (defn get-db
   ([] (get-db (get-db-connection) db-name))
