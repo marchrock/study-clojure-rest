@@ -31,7 +31,7 @@
   ([conn] (get-db conn db-name))
   ([conn name] (mg/get-db conn name)))
 
-(defmacro db-insert
+(defn db-insert
   [mongo-coll document]
   (let [conn (get-db-connection)
         mongo-db (get-db conn)
