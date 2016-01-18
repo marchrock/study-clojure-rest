@@ -20,5 +20,5 @@
 
 (defn -main
   [& args]
-  (study-clojure-rest.server/start-server app)
-  (start-db-connection))
+  (start-db-connection)
+  (study-clojure-rest.server/start-server app))
