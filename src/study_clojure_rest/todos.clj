@@ -17,8 +17,8 @@
 
 (defn get-all-todos
   [req]
-  (-> (response "{\"error\": \"not defined yet\"}")
-      (header "Content-Type" "application/json")))
+  (-> (response {:error "not defined yet"})
+      (header "Content-Type" "application/json; charset=utf-8")))
 
 (defn add-new-todos
   [req]
