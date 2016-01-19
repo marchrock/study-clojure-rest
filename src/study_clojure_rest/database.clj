@@ -38,3 +38,10 @@
         document-with-id (if (contains? document :_id) document
                                                        (assoc document :_id (ObjectId.)))]
     (mc/insert mongo-db mongo-coll document-with-id)))
+
+(defn db-select
+  ([mongo-coll] (db-select mongo-coll {}))
+  ([mongo-coll select-condition]
+   (let [conn (get-db-connection)
+         mongo-db (get-db conn)]
+     (mc/find-maps mongo-db mongo-coll select-condition))))
