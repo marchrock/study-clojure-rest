@@ -1,7 +1,8 @@
 (ns study-clojure-rest.todos
-  (:require [study-clojure-rest.database :refer [db-insert]]
+  (:require [study-clojure-rest.database :refer [db-insert db-select]]
             [compojure.core :refer [routes GET POST]]
-            [ring.util.response :refer [response header]]))
+            [ring.util.response :refer [response header]]
+            [monger.json]))
 
 (def todo-db-collection-name
   "Todos")
@@ -17,8 +18,9 @@
 
 (defn get-all-todos
   [req]
-  (-> (response {:error "not defined yet"})
-      (header "Content-Type" "application/json; charset=utf-8")))
+  (let [todos (db-select todo-db-collection-name)]
+    (-> (response todos)
+        (header "Content-Type" "application-json; charset=utf-8"))))
 
 (defn add-new-todos
   [req]
