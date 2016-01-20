@@ -2,7 +2,8 @@
   (:require [study-clojure-rest.database :refer [db-insert db-select]]
             [compojure.core :refer [routes GET POST]]
             [ring.util.response :refer [response header]]
-            [monger.json]))
+            [monger.json])
+  (:import (org.bson.types ObjectId)))
 
 (def todo-db-collection-name
   "Todos")
@@ -21,6 +22,12 @@
     (-> (response todos)
         (header "Content-Type" "application-json; charset=utf-8"))))
 
+(defn get-todos-by-id
+  [^String id]
+  (let [todos (db-select todo-db-collection-name {:_id (ObjectId. id)})]
+    (-> (response todos)
+        (header "Content-Type" "application-json; charset=utf-8"))))
+
 (defn add-new-todos
   [req]
   (let [body (req :body)]
@@ -34,4 +41,5 @@
   []
   (routes
     (GET "/" [] get-all-todos)
+    (GET "/:id" [id] (get-todos-by-id id))
     (POST "/" [] add-new-todos)))
