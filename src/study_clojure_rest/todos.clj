@@ -13,8 +13,7 @@
 
 (defn is-todo?
   [probably-todo-map]
-  (do (println probably-todo-map)
-      (has-todo-name? probably-todo-map)))
+  (has-todo-name? probably-todo-map))
 
 (defn get-all-todos
   [req]
